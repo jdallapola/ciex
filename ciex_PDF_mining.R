@@ -1,0 +1,44 @@
+# Following instructions at https://uvastatlab.github.io/2019/05/14/reading-pdf-files-into-r-for-text-mining/ #
+
+# Reading pdf files into list
+
+library(pdftools)
+files <- list.files(pattern = "pdf$")
+ciex_pdfs <- lapply(files, pdf_text)
+length(ciex_pdfs)
+lapply(ciex_pdfs, length) 
+
+# Transforming list into VCorpus
+
+library(tm)
+
+corp <- VCorpus(VectorSource(ciex_pdfs))
+
+# Clean-up Process 
+
+library(stopwords)
+
+stopwords_CIEX = read.csv('./stopwords_CIEX.csv')
+
+corp <- tm_map(corp, removeWords, stopwords_pt)
+corp <- tm_map(corp, removeWords, stopwords_CIEX)
+
+ciex_pdfs.tdm <- TermDocumentMatrix(corp, 
+                                    control = 
+                                      list(removePunctuation = TRUE,
+                                           stopwords = TRUE,
+                                           tolower = TRUE,
+                                           stemming = TRUE,
+                                           removeNumbers = TRUE,
+                                           bounds = list(global = c(3, Inf)))) 
+
+# Creating Term Document Matrix for most frequent terms #
+
+ft <- findFreqTerms(ciex_pdfs.tdm, 
+                    lowfreq = 100, 
+                    highfreq = Inf)
+# or
+#ft <- findMostFreqTerms(ciex_pdfs.tdm)
+
+ft.tdm <- as.matrix(ciex_pdfs.tdm[ft,])
+
