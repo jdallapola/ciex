@@ -1,4 +1,5 @@
-# Calling Required Packages #
+# Calling Required Libraries #
+
 library(pdfsearch)
 library(pdftools)
 library(tm)
@@ -13,31 +14,31 @@ library(ggplot2)
 # Following instructions at https://uvastatlab.github.io/2019/05/14/reading-pdf-files-into-r-for-text-mining/ #
 
 # Reading pdf files into list
+            #library(pdftools)
 
-library(pdftools)
-files <- list.files(pattern = "pdf$")
-ciex_pdfs <- lapply(files, pdf_text)
-length(ciex_pdfs)
-lapply(ciex_pdfs, length) 
+  setwd("~/R/CIEX/pdfs") #Set Working Directory to folder with all pdfs
+  
+  files <- list.files(pattern = "pdf$")
+  ciex_pdfs <- lapply(files, pdf_text)
+  length(ciex_pdfs)
+  lapply(ciex_pdfs, length) 
 
 # Transforming list into VCorpus
-
-library(tm)
+            #library(tm)
 
 corp <- VCorpus(VectorSource(ciex_pdfs))
 
 # Clean-up Process 
+    # library(stopwords)
 
-library(stopwords)
+    stopwords_CIEX = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/stopwords_CIEX.csv")
+    
+    #corp <- tm_map(corp, removeWords, stopwords_pt)
+    #corp <- tm_map(corp, removeWords, stopwords_CIEX)
 
-stopwords_CIEX = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/stopwords_CIEX.csv")
-
-stopwords_CIEX
-
-corp <- tm_map(corp, removeWords, stopwords_pt)
-corp <- tm_map(corp, removeWords, stopwords_CIEX)
-
-ciex_pdfs.tdm <- TermDocumentMatrix(corp, 
+# Creating Term Document Matrix
+    
+    ciex_pdfs.tdm <- TermDocumentMatrix(corp, 
                                     control = 
                                       list(removePunctuation = TRUE,
                                            stopwords = TRUE,
@@ -55,4 +56,6 @@ ft <- findFreqTerms(ciex_pdfs.tdm,
 #ft <- findMostFreqTerms(ciex_pdfs.tdm)
 
 ft.tdm <- as.matrix(ciex_pdfs.tdm[ft,])
+
+sort(apply(ft.tdm, 1, sum), decreasing = TRUE)
 
