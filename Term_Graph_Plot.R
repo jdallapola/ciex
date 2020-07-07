@@ -1,10 +1,10 @@
 
 # Calling Required Elements #
 
-    # Years List
-    years = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/years_CIEX.csv")
+    # Importing PDF Years List
+    years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/years_CIEX.csv")
     
-    # Sourcing and Running Text Mining Script
+    # Sourcing and Running Text Mining Script (WARNING: Will take a few seconds to run)
     source("https://raw.githubusercontent.com/jdallapola/ciex/master/ciex_PDF_mining.R")        
                                                                                                   
 # --------------------------------------------------------------------------------------------------    
@@ -40,9 +40,9 @@ go_search <- function()
   search_directory = setNames(aggregate(search_directory$Freq., by = search_directory$Years, FUN = sum), c("Years","Freq."))
   
   # Graph elements #
-  n = sum(search_directory$Freq.)  
-  title = paste("Frequency of the word"," '",search_key,"' ","in CIEX Documents", sep = " ", collapse = NULL)
-  subtitle = paste("n = ",n,"
+  n <- sum(search_directory$Freq.)  
+  title <- paste("Frequency of the word"," '",search_key,"' ","in CIEX Documents", sep = " ", collapse = NULL)
+  subtitle <- paste("n = ",n,"
                      ", sep = "", collapse = NULL)
   windowsFonts(A = windowsFont("Louis George Café"))
   

@@ -31,7 +31,7 @@ corp <- VCorpus(VectorSource(ciex_pdfs))
 # Clean-up Process 
     # library(stopwords)
 
-    stopwords_CIEX = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/stopwords_CIEX.csv")
+    #stopwords_CIEX = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/stopwords_CIEX.csv")
     
     #corp <- tm_map(corp, removeWords, stopwords_pt)
     #corp <- tm_map(corp, removeWords, stopwords_CIEX)
