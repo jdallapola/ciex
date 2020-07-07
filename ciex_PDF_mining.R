@@ -1,3 +1,15 @@
+# Calling Required Packages #
+library(pdfsearch)
+library(pdftools)
+library(tm)
+library(stopwords)
+library(dplyr)
+library(stringr)
+library(plyr)
+library(data.table)
+library(ggplot2)
+
+
 # Following instructions at https://uvastatlab.github.io/2019/05/14/reading-pdf-files-into-r-for-text-mining/ #
 
 # Reading pdf files into list
@@ -18,7 +30,9 @@ corp <- VCorpus(VectorSource(ciex_pdfs))
 
 library(stopwords)
 
-stopwords_CIEX = read.csv('./stopwords_CIEX.csv')
+stopwords_CIEX = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/stopwords_CIEX.csv")
+
+stopwords_CIEX
 
 corp <- tm_map(corp, removeWords, stopwords_pt)
 corp <- tm_map(corp, removeWords, stopwords_CIEX)
