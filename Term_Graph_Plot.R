@@ -4,26 +4,36 @@ rm(list = ls())
 
 # Calling Required Elements #
 
-# Years List
+    # Years List
+    years = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/years_CIEX.csv")
+    
+    # Sourcing and Running Text Mining Script
+    source("https://raw.githubusercontent.com/jdallapola/ciex/master/ciex_PDF_mining.R")        
+                                                                                                  
+# --------------------------------------------------------------------------------------------------    
+    
+# User Interface
 
-
-# Sourcing and Running Text Mining Script
-source("https://raw.githubusercontent.com/jdallapola/ciex/master/ciex_PDF_mining.R")
-
-# Front End
-######################################################################################################
-search_key <- "uruguai" #insert search key here
+search_key <- "" #insert search key here
 go_search() # initiate search mechanism and graph plotter
 
-# Under the hood
-######################################################################################################
+
+
+
+
+
+
+
+
+
+# ---------------------------------------------
+## Under the hood
+
 go_search <- function()
   
 {
   
-  years = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/years_CIEX.csv")
-  
-  search_directory = as.matrix(ciex_pdfs.dtm)%>%
+    search_directory = as.matrix(ciex_pdfs.dtm)%>%
     data.frame()%>%
     select(search_key)%>%
     data.frame()
