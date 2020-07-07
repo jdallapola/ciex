@@ -1,6 +1,3 @@
-# Cleaning Work Environment #
-
-rm(list = ls())
 
 # Calling Required Elements #
 
