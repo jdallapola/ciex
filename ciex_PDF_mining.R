@@ -36,26 +36,14 @@ corp <- VCorpus(VectorSource(ciex_pdfs))
     #corp <- tm_map(corp, removeWords, stopwords_pt)
     #corp <- tm_map(corp, removeWords, stopwords_CIEX)
 
-# Creating Term Document Matrix
+# Creating Document Term Matrix
     
-    ciex_pdfs.tdm <- TermDocumentMatrix(corp, 
-                                    control = 
-                                      list(removePunctuation = TRUE,
-                                           stopwords = TRUE,
-                                           tolower = TRUE,
-                                           stemming = TRUE,
-                                           removeNumbers = TRUE,
-                                           bounds = list(global = c(3, Inf)))) 
-
-# Creating Term Document Matrix for most frequent terms #
-
-ft <- findFreqTerms(ciex_pdfs.tdm, 
-                    lowfreq = 100, 
-                    highfreq = Inf)
-# or
-#ft <- findMostFreqTerms(ciex_pdfs.tdm)
-
-ft.tdm <- as.matrix(ciex_pdfs.tdm[ft,])
-
-sort(apply(ft.tdm, 1, sum), decreasing = TRUE)
-
+    ciex_pdfs.dtm <- DocumentTermMatrix(corp, 
+                                        control = 
+                                          list(removePunctuation = TRUE,
+                                               stopwords = TRUE,
+                                               tolower = TRUE,
+                                               stemming = TRUE,
+                                               removeNumbers = TRUE,
+                                               bounds = list(global = c(3, Inf)))) 
+    
