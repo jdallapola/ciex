@@ -5,7 +5,7 @@
     years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/years_CIEX.csv")
     
     # Sourcing and Running Text Mining Script (WARNING: Will take a few seconds to run)
-    source("https://raw.githubusercontent.com/jdallapola/ciex/master/ciex_PDF_mining.R")        
+    source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/ciex_pdf_mining.R")        
                                                                                                   
 # --------------------------------------------------------------------------------------------------    
     
@@ -37,7 +37,7 @@ go_search <- function()
   n <- sum(search_directory$Freq.)
   title <- paste0("Frequency of the word ","''",search_key,"''"," in CIEX Documents", collapse = NULL)
   subtitle <- paste("n = ",n, collapse = NULL)
-  windowsFonts(A = windowsFont("Louis George Café"))
+  windowsFonts(A = windowsFont("Louis George Caf?"))
   
   # Structuring and Plotting Graph #  
   

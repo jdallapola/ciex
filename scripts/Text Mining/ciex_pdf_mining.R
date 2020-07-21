@@ -9,7 +9,7 @@ library(stringr)
 library(plyr)
 library(data.table)
 library(ggplot2)
-
+rm(list = ls())
 
 # Following instructions at https://uvastatlab.github.io/2019/05/14/reading-pdf-files-into-r-for-text-mining/ #
 

@@ -106,12 +106,12 @@ errors_geo = main_df%>%
   
   # Run date fixer script below
   
-  source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/GeoMap%20Timeline/set_random_D_M.R")  
+  source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/GeoMap%20Timeline/date_cleaner.R")  
 
   # Run ISO 2 to ISO 3 converter
   
   # Calling lookup table
-      lookup = read.csv("./iso_conversion_table.csv",sep=";")
+      lookup = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/GeoMap%20Timeline/iso_conversion_table.csv",sep=";")
   
   # Testing find and replace based on lookup table
       countries_df$Alpha.3.code[] <- lookup$ISO3[match(unlist(countries_df$Alpha.3.code), lookup$ISO2)]
@@ -124,7 +124,7 @@ errors_geo = main_df%>%
   countries_df <- join(countries_df, iso_lat_lon, by = "Alpha.3.code", type = "left")
 
   # Exporting to CSV File
-  write.csv(countries_df, "./data_geomap_timeline.csv",fileEncoding = "UTF-8", row.names = FALSE)
+  write.csv(countries_df, "./export_data_geomap_timelineBR.csv",fileEncoding = "UTF-8", row.names = FALSE)
 
 
 
