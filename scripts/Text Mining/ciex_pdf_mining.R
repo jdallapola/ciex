@@ -25,24 +25,27 @@ corp <- VCorpus(VectorSource(ciex_pdfs))
 
 # Clean-up Process 
     
-    ciex_stopwords = scan("~/R/CIEX/ciex_online/data/stopwords_CIEX.csv",what = "character")
+    ciex_stopwords = scan("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/stopwords_CIEX.csv",what = "character")
     
     corp_cleaned <- tm_map(corp,content_transformer(tolower))
     corp_cleaned <- tm_map(corp_cleaned, removeWords, c("data",ciex_stopwords, 
                                                 stopwords("pt"),
                                                 stopwords("en"),
                                                 stopwords("es")))
+
+  corp_cleaned <- tm_map(corp_cleaned, stemDocument, language = "pt")  
+  corp_cleaned <- tm_map(corp_cleaned,content_transformer(removePunctuation))
+  corp_cleaned <- tm_map(corp_cleaned,content_transformer(removeNumbers))
+  
 # Creating Document Term Matrix
 
-    ciex_pdfs.dtm <- DocumentTermMatrix(corp_cleaned, control = list(removePunctuation = TRUE,
-                                                                     stemming = FALSE,
-                                                                     removeNumbers = TRUE,
-                                                                     bounds = list(global = c(3, Inf)))) 
+    ciex_pdfs.dtm <- DocumentTermMatrix(corp_cleaned, control = list(bounds = list(global = c(3, Inf)))) 
+    
 # Search and graph plotter tool
     
     # Importing PDF Years List
     
-    years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/data/years_CIEX.csv")
+    years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/years_CIEX.csv")
     
     # Creating search function
     
@@ -78,5 +81,5 @@ corp <- VCorpus(VectorSource(ciex_pdfs))
               plot.subtitle = element_text(size = 10, margin = margin(t=0,r=0,b=20,l=0)))
     }   
     
-    
+      print("Import finished. Ready for term search and graph plotting.")    
     
