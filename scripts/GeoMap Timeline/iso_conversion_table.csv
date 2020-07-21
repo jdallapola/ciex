@@ -1,0 +1,206 @@
+﻿Name;ISO2;ISO3
+Afghanistan;AF;AFG
+Albania;AL;ALB
+Algeria;DZ;DZA
+Andorra;AD;AND
+Angola;AO;AGO
+Antigua and Barbuda;AG;ATG
+Argentina;AR;ARG
+Armenia;AM;ARM
+Australia;AU;AUS
+Austria;AT;AUT
+Azerbaijan;AZ;AZE
+Bahamas;BS;BHS
+Bahrain;BH;BHR
+Bangladesh;BD;BGD
+Barbados;BB;BRB
+Belarus;BV;BLR
+Belgium;BE;BEL
+Belize;BZ;BLZ
+Benin;BJ;BEN
+Bhutan;BT;BTN
+Bolivia;BO;BOL
+Bosnia and Herzegovina;BA;BIH
+Botswana;BW;BWA
+Brazil;BR;BRA
+Brunei;BN;BRN
+Bulgaria;BG;BGR
+Burkina Faso;BF;BFA
+Burundi;BI;BDI
+Cape Verde;CV;CPV
+Cambodia;KH;KHM
+Cameroon;CM;CMR
+Canada;CA;CAN
+Central African Republic;CF;CAF
+Chad;TD;TCD
+Chile;CL;CHL
+China;CN;CHN
+Colombia;CO;COL
+Comoros;KM;COM
+Congo, the Democratic Republic of the;CD;COD
+Congo;CG;COG
+Costa Rica;CR;CRI
+Ivory Coast;CI;CIV
+Croatia;HR;HRV
+Cuba;CU;CUB
+Cyprus;CY;CYP
+Denmark;DK;DNK
+Djibouti;DJ;DJI
+Dominica;DM;DMA
+Dominican Republic;DO;DOM
+Timor-Leste;TP;TLS
+Ecuador;EC;ECU
+Egypt;EG;EGY
+El Salvador;SV;SLV
+Equatorial Guinea;GQ;GNQ
+Eritrea;ER;ERI
+Estonia;EE;EST
+Swaziland;SZ;SWZ
+Ethiopia;ET;ETH
+Fiji;FJ;FJI
+Finland;FI;FIN
+French Guiana;GF;GUF
+France;FR;FRA
+Gabon;GA;GAB
+Gambia;GM;GMB
+Georgia;GE;GEO
+Germany;DE;DEU
+Ghana;GH;GHA
+Greece;GR;GRC
+Grenada;GD;GRD
+Guatemala;GT;GTM
+Guinea;GN;GIN
+Guinea-Bissau;GW;GNB
+Guyana;GY;GUY
+Haiti;HT;HTI
+Honduras;HN;HND
+Hungary;HU;HUN
+Iceland;ICE;ISL
+India;IN;IND
+Indonesia;ID;IDN
+Iran, Islamic Republic of;IR;IRN
+Iraq;IQ;IRQ
+Ireland;IE;IRL
+Israel;IL;ISR
+Italy;IT;ITA
+Jamaica;JM;JAM
+Japan;JP;JPN
+Jordan;JO;JOR
+Kazakhstan;KZ;KAZ
+Kenya;KE;KEN
+Kiribati;KI;KIR
+Korea, Democratic People's Republic of;KP;PRK
+Korea, Republic of;KR;KOR
+Kosovo;KSV;RKS
+Kuwait;KW;KWT
+Kyrgyzstan;KG;KGZ
+Lao People's Democratic Republic;LA;LAO
+Latvia;LV;LVA
+Lebanon;LB;LBN
+Lesotho;LS;LSO
+Liberia;LR;LBR
+Libya;LY;LBY
+Liechtenstein;LI;LIE
+Lithuania;LT;LTU
+Luxembourg;LU;LUX
+Madagascar;MG;MDG
+Malawi;MW;MWI
+Malaysia;MY;MYS
+Maldives;MV;MDV
+Mali;ML;MLI
+Malta;MT;MLT
+Marshall Islands;MH;MHL
+Mauritania;MR;MRT
+Mauritius;MU;MUS
+Mexico;MX;MEX
+Micronesia, Federated States of;FM;FSM
+Moldova;MD;MDA
+Monaco;MC;MCO
+Mongolia;MN;MNG
+Montenegro;CS;MNE
+Morocco;MA;MAR
+Mozambique;MZ;MOZ
+Burma;MM;MMR
+Namibia;NAM;NAM
+Nauru;NR;NRU
+Nepal;NP;NPL
+Netherlands;NL;NLD
+New Zealand;NZ;NZL
+Nicaragua;NI;NIC
+Niger;NE;NER
+Nigeria;NG;NGA
+Macedonia, the former Yugoslav Republic of;MK;MKD
+Norway;NO;NOR
+Oman;OM;OMN
+Pakistan;PK;PAK
+Palau;PW;PLW
+Panama;PA;PAN
+Papua New Guinea;PG;PNG
+Paraguay;PY;PRY
+Peru;PE;PER
+Philippines;PH;PHL
+Poland;PL;POL
+Portugal;PT;PRT
+Qatar;QA;QAT
+Romania;RO;ROU
+Rwanda;RW;RWA
+Saint Kitts and Nevis;KN;KNA
+Saint Lucia;LC;LCA
+Saint Vincent and the Grenadines;VC;VCT
+Samoa;WS;WSM
+San Marino;SM;SMR
+Sao Tome and Principe;ST;STP
+Saudi Arabia;SA;SAU
+Senegal;SN;SEN
+Serbia;SRB;SRB
+Seychelles;SC;SYC
+Sierra Leone;SL;SLE
+Singapore;SG;SGP
+Slovenia;SI;SVN
+Solomon Islands;SB;SLB
+Somalia;SO;SOM
+South Africa;ZA;ZAF
+Spain;ES;ESP
+Sri Lanka;LK;LKA
+Sudan;SD;SDN
+South Sudan;SDS;SSD
+Suriname;SR;SUR
+Sweden;SE;SWE
+Switzerland;CH;CHE
+Syrian Arab Republic;SY;SYR
+Taiwan;TW;TWN
+Tajikistan;TJ;TJK
+Tanzania, United Republic of;TZ;TZA
+Thailand;TH;THA
+Togo;TG;TGO
+Tonga;TO;TON
+Trinidad and Tobago;TT;TTO
+Tunisia;TN;TUN
+Turkey;TR;TUR
+Turkmenistan;TM;TKM
+Tuvalu;TV;TUV
+Uganda;UG;UGA
+Ukraine;UA;UKR
+United Arab Emirates;AE;ARE
+United Kingdom;UK;GBR
+United States;US;USA
+Uruguay;UY;URY
+Uzbekistan;UZ;UZB
+Vanuatu;VU;VUT
+Holy See (Vatican City State);VA;VAT
+Venezuela;VE;VEN
+Vietnam;VN;VNM
+Yemen;YE;YEM
+Zambia;ZM;ZMB
+Zimbabwe;ZW;ZWE
+Union of the Soviet Socialist Republics;SU;SUN
+Palestine;PS;PSE
+German Democratic Republic;GDR;GDR
+Federal Republic of Germany;FRG;FRG
+Socialist Federal Republic of Yugoslavia;YU;YUG
+United Arab Republic;UAR;UAR
+Czechoslovakia;CZS;CZS
+Puerto Rico;PR;PRI
+Sahrawi Arab Democratic Republic;WSH;WSH
+Curaçao;CUR;CUR
+Unknown;XXX;XXX
