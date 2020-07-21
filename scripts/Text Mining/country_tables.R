@@ -1,6 +1,6 @@
 # Pre-defined list of terms
 
-countries <- read.csv("C:/Users/jdall/Documents/R/CIEX/ciex_online/scripts/Text Mining/country_list_pt.csv")
+countries <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/data/country_list_pt.csv")
 countries <-countries$cn%>%
     as.character
 
