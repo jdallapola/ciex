@@ -11,19 +11,20 @@ library(data.table)
 library(ggplot2)
 
 
-# Reading pdf files into list
+  print("Reading pdf files into list")
             
   setwd("~/R/CIEX/pdfs") #Set Working Directory to folder with all pdfs
   
   files <- list.files(pattern = "pdf$")
   ciex_pdfs <- lapply(files, pdf_text)
   
-# Transforming list into VCorpus
-            #library(tm)
+  print("Finished reading pdf files")
+  
+  print("Transforming list into VCorpus")
 
-corp <- VCorpus(VectorSource(ciex_pdfs))
+  corp <- VCorpus(VectorSource(ciex_pdfs))
 
-# Clean-up Process 
+  print("Clean-up Process")
     
     ciex_stopwords = scan("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/stopwords_CIEX.csv",what = "character")
     
@@ -37,13 +38,13 @@ corp <- VCorpus(VectorSource(ciex_pdfs))
   corp_cleaned <- tm_map(corp_cleaned,content_transformer(removePunctuation))
   corp_cleaned <- tm_map(corp_cleaned,content_transformer(removeNumbers))
   
-# Creating Document Term Matrix
+print("Creating Document Term Matrix")
 
     ciex_pdfs.dtm <- DocumentTermMatrix(corp_cleaned, control = list(bounds = list(global = c(3, Inf)))) 
     
-# Search and graph plotter tool
+print("Search and graph plotter tool")
     
-    # Importing PDF Years List
+    #Importing PDF Years List
     
     years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/years_CIEX.csv")
     
@@ -64,7 +65,7 @@ corp <- VCorpus(VectorSource(ciex_pdfs))
       
       # Graph elements #
       n <- sum(search_directory$Freq.)
-      title <- paste0("Frequency of the word ","''",search_key,"''"," in CIEX Documents", collapse = NULL)
+      title <- paste0("Figure ",graph_n,search_key,":"," term frequency in CIEX Documents", collapse = NULL)
       subtitle <- paste("n = ",n, collapse = NULL)
       windowsFonts(A = windowsFont("Louis George Café"))
       
@@ -76,8 +77,8 @@ corp <- VCorpus(VectorSource(ciex_pdfs))
         xlab("Year") +
         ylab("Frequency") + 
         theme(text = element_text(size = 15,family = "A"),
-              axis.title.x = element_text(margin = margin(t=20,r=0,b=20,l=0)),
-              axis.title.y = element_text(margin = margin(t=00,r=20,b=0,l=20)),
+              axis.title.x = element_text(margin = margin(t=20,r=0,b=00,l=0)),
+              axis.title.y = element_text(margin = margin(t=00,r=20,b=0,l=00)),
               plot.subtitle = element_text(size = 10, margin = margin(t=0,r=0,b=20,l=0)))
     }   
     

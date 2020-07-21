@@ -31,10 +31,10 @@ write.csv(most_frequent_countries, "~/R/CIEX/ciex_online/most_frequent_countries
 lbls <- paste(cn_top_10$Var1)
 
 country_bar = ggplot(cn_top_10, aes(x = reorder(lbls,-Freq),y = Freq))+
-  ggtitle("Frequency of Selected Search Terms", subtitle="Top 10 country names in ciex documents")+
+  ggtitle("Frequency of Selected Search Terms", subtitle="Top 10 country names in CIEX documents")+
   xlab("Term") +
   ylab("Frequency") + 
-  geom_bar(stat="identity",fill ="#ff6961" ) +
+  geom_bar(stat="identity",fill ="#6891C3" ) +
   geom_text(aes(x = Var1, y = 300 + (Freq), label = round(Freq, 2)), family = "A")+
   theme(plot.subtitle = element_text(size = 10, margin = margin(t = 0, r = 00, b = 20, l = 0)),
         axis.text.x=element_text(angle = 45, vjust = 1, hjust=1),
@@ -42,7 +42,5 @@ country_bar = ggplot(cn_top_10, aes(x = reorder(lbls,-Freq),y = Freq))+
         text = element_text(size = 15, family = "A"),
         axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
         
-
-
-country_bar + scale_color_tableau()
+country_bar
 

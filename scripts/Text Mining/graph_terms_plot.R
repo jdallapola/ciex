@@ -4,7 +4,11 @@
                                                                                                   
 # --------------------------------------------------------------------------------------------------    
     
-search_key <- "" #insert search key here
+search_key <- "Portugal" #insert search key here
+graph_n  = "6
+
+"
 go_search() # initiate search mechanism and graph plotter
+
 
 
