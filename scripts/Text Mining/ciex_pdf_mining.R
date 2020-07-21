@@ -11,45 +11,40 @@ library(data.table)
 library(ggplot2)
 
 
-# Following instructions at https://uvastatlab.github.io/2019/05/14/reading-pdf-files-into-r-for-text-mining/ #
-
 # Reading pdf files into list
-            #library(pdftools)
-
+            
   setwd("~/R/CIEX/pdfs") #Set Working Directory to folder with all pdfs
   
   files <- list.files(pattern = "pdf$")
   ciex_pdfs <- lapply(files, pdf_text)
-  length(ciex_pdfs)
-  lapply(ciex_pdfs, length) 
-
+  
 # Transforming list into VCorpus
             #library(tm)
 
 corp <- VCorpus(VectorSource(ciex_pdfs))
 
 # Clean-up Process 
-    # library(stopwords)
-
-    #stopwords_CIEX = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/stopwords_CIEX.csv")
     
-    #corp <- tm_map(corp, removeWords, stopwords_pt)
-    #corp <- tm_map(corp, removeWords, stopwords_CIEX)
-
+    ciex_stopwords = scan("~/R/CIEX/ciex_online/data/stopwords_CIEX.csv",what = "character")
+    
+    corp_cleaned <- tm_map(corp,content_transformer(tolower))
+    corp_cleaned <- tm_map(corp_cleaned, removeWords, c("data",ciex_stopwords, 
+                                                stopwords("pt"),
+                                                stopwords("en"),
+                                                stopwords("es")))
 # Creating Document Term Matrix
-    
-    ciex_pdfs.dtm <- DocumentTermMatrix(corp, 
-                                        control = 
-                                          list(removePunctuation = TRUE,
-                                               stopwords = TRUE,
-                                               tolower = TRUE,
-                                               removeNumbers = TRUE,
-                                               bounds = list(global = c(3, Inf)))) 
-    # Search and graph plotter tool
+
+    ciex_pdfs.dtm <- DocumentTermMatrix(corp_cleaned, control = list(removePunctuation = TRUE,
+                                                                     stemming = FALSE,
+                                                                     removeNumbers = TRUE,
+                                                                     bounds = list(global = c(3, Inf)))) 
+# Search and graph plotter tool
     
     # Importing PDF Years List
     
     years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/data/years_CIEX.csv")
+    
+    # Creating search function
     
     go_search <- function(){
       
@@ -68,7 +63,7 @@ corp <- VCorpus(VectorSource(ciex_pdfs))
       n <- sum(search_directory$Freq.)
       title <- paste0("Frequency of the word ","''",search_key,"''"," in CIEX Documents", collapse = NULL)
       subtitle <- paste("n = ",n, collapse = NULL)
-      windowsFonts(A = windowsFont("Louis George Caf?"))
+      windowsFonts(A = windowsFont("Louis George Café"))
       
       # Structuring and Plotting Graph #  
       
