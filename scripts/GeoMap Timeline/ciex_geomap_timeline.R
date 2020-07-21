@@ -27,12 +27,12 @@ main_df <- main_df %>%
 Encoding(rownames(main_df)) = "UTF-8"
 #Removing old columns
 main_df <- main_df%>%
-            select(-País.da.Ação,
-                   -Cidade.da.Ação,
-                   -País.Destino,
+            select(-PaÃ­s.da.AÃ§Ã£o,
+                   -Cidade.da.AÃ§Ã£o,
+                   -PaÃ­s.Destino,
                    -Cidade.Destino, 
                    -Nomes.Entidades, 
-                   -Data.Ação, 
+                   -Data.AÃ§Ã£o, 
                    -Status)
 # Checking if alright #
 head(main_df)
@@ -106,7 +106,7 @@ errors_geo = main_df%>%
   
   # Run date fixer script below
   
-  source("INSERT LINK HERE")  
+  source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/GeoMap%20Timeline/set_random_D_M.R")  
 
   # Run ISO 2 to ISO 3 converter
   
