@@ -4,7 +4,7 @@
                                                                                                   
 # --------------------------------------------------------------------------------------------------    
     
-search_key <- "terrorista" #insert search key here
+search_key <- "Subversivo" #insert search key here
 graph_n  = "6
 
 "
