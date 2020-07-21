@@ -2,7 +2,7 @@
 # Calling Required Elements #
 
     # Importing PDF Years List
-    years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/years_CIEX.csv")
+    years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/data/years_CIEX.csv")
     
     # Sourcing and Running Text Mining Script (WARNING: Will take a few seconds to run)
     source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/ciex_pdf_mining.R")        
