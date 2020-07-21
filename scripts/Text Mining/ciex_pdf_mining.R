@@ -11,20 +11,22 @@ library(data.table)
 library(ggplot2)
 
 
-  print("Reading pdf files into list")
+  print("1/4 Reading pdf files into list")
             
   setwd("~/R/CIEX/pdfs") #Set Working Directory to folder with all pdfs
   
   files <- list.files(pattern = "pdf$")
   ciex_pdfs <- lapply(files, pdf_text)
   
-  print("Finished reading pdf files")
+ 
   
-  print("Transforming list into VCorpus")
+  print("2/4 Transforming list into VCorpus")
 
   corp <- VCorpus(VectorSource(ciex_pdfs))
 
-  print("Clean-up Process")
+  
+  
+  print("3/4 Clean-up Process")
     
     ciex_stopwords = scan("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/stopwords_CIEX.csv",what = "character")
     
@@ -38,13 +40,15 @@ library(ggplot2)
   corp_cleaned <- tm_map(corp_cleaned,content_transformer(removePunctuation))
   corp_cleaned <- tm_map(corp_cleaned,content_transformer(removeNumbers))
   
-print("Creating Document Term Matrix")
+
+  
+  print("4/4 Creating Document Term Matrix")
 
     ciex_pdfs.dtm <- DocumentTermMatrix(corp_cleaned, control = list(bounds = list(global = c(3, Inf)))) 
     
-print("Search and graph plotter tool")
-    
-    #Importing PDF Years List
+    #Search and graph plotter tool
+        
+        #Importing PDF Years List
     
     years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/years_CIEX.csv")
     

@@ -1,8 +1,34 @@
+
+#Reading pdf files into list
+
+setwd("~/R/CIEX/pdfs") #Set Working Directory to folder with all pdfs
+
+files <- list.files(pattern = "pdf$")
+ciex_pdfs <- lapply(files, pdf_text)
+
+#Transforming list into VCorpus
+
+corp <- VCorpus(VectorSource(ciex_pdfs))
+
+#Clean-up Process
+
+ciex_stopwords = scan("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/stopwords_CIEX.csv",what = "character")
+
+corp_cleaned <- tm_map(corp,content_transformer(tolower))
+corp_cleaned <- tm_map(corp_cleaned, removeWords, c("data",ciex_stopwords, 
+                                                    stopwords("pt"),
+                                                    stopwords("en"),
+                                                    stopwords("es")))
+
+corp_cleaned <- tm_map(corp_cleaned, stemDocument, language = "pt")  
+corp_cleaned <- tm_map(corp_cleaned,content_transformer(removePunctuation))
+corp_cleaned <- tm_map(corp_cleaned,content_transformer(removeNumbers))
+
 # Pre-defined list of terms
 
 countries <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/country_list_pt.csv", header = FALSE)
 countries <-countries$V1%>%
-    as.character
+  as.character
 
 countries.dtm <-DocumentTermMatrix(corp_cleaned, control=list(dictionary = countries))
 
