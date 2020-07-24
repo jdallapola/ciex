@@ -16,12 +16,12 @@ intact_main_df <- intact_main_df %>%
 Encoding(rownames(intact_main_df)) = "UTF-8"
 #Removing old columns
 intact_main_df <- intact_main_df%>%
-  select(-País.da.Ação,
-         -Cidade.da.Ação,
-         -País.Destino,
+  select(-Pa?s.da.A??o,
+         -Cidade.da.A??o,
+         -Pa?s.Destino,
          -Cidade.Destino, 
          -Nomes.Entidades, 
-         -Data.Ação, 
+         -Data.A??o, 
          -Status)
 
 #############################
@@ -49,10 +49,10 @@ main_df = main_df%>%
 ###############
 
   main_df = main_df%>%
-  filter(stndr_name != "Desconhecido [ver observações especiais]")%>%
+  filter(stndr_name != "Desconhecido [ver observa??es especiais]")%>%
   filter(!grepl('und',stndr_name))%>%
   filter(!grepl('pnd',stndr_name))%>%
-  filter(!grepl('illegível',stndr_name))%>%
+  filter(!grepl('illegÃ­vel',stndr_name))%>%
   select(-total_ties,-t,-id)
 
 ###############

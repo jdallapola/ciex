@@ -73,24 +73,24 @@
           
           # Graph elements #
           n <- sum(search_directory$Freq.)
-          title <- paste0("Figure ",graph_n,search_key,":"," term frequency in CIEX Documents", collapse = NULL)
-          subtitle <- paste("n = ",n, collapse = NULL)
+          title <- paste0(search_key,":"," term frequency in CIEX Documents", collapse = NULL)
+          cap <- paste("n = ",n, collapse = NULL)
           windowsFonts(A = windowsFont("Louis George Café"))
           
           # Structuring and Plotting Graph #  
           ggplot(search_directory, aes(x=Years, y=Freq., group=1))+
             geom_line(color="#6891C3", size = 1.2) +
-            ggtitle(title,subtitle=subtitle) +
+            labs(caption=cap) +
             xlab("Year") +
-            ylab("Frequency") + 
-            theme(text = element_text(size = 15,family = "A"),
-                  axis.title.x = element_text(margin = margin(t=20,r=0,b=00,l=0)),
+            ylab("Frequency") +
+            theme_bw()+
+            theme(text = element_text(size = 15, family = "A"),
+                  axis.title.x = element_text(margin = margin(t=5,r=0,b=00,l=0)),
                   axis.title.y = element_text(margin = margin(t=00,r=20,b=0,l=00)),
-                  plot.subtitle = element_text(size = 10, margin = margin(t=0,r=0,b=20,l=0)))
+                  plot.subtitle = element_text(size = 10,margin = margin(t=00,r=00,b=10,l=00)))
         }   
         
-        
-        
+     
         print("6/6 Creating country DTM based off of dictionary of selected country names")
         
         # Pre-defined list of terms
@@ -120,23 +120,25 @@
         capFirst <- function(s) {paste(toupper(substring(s, 1, 1)), substring(s, 2), sep = "")}
         cn_top_10$Var1 <- capFirst(cn_top_10$Var1)
         
-        #write.csv(most_frequent_countries, "~/R/CIEX/ciex_online/most_frequent_countries.csv")
+        write.csv(cn_top_10, "~/R/CIEX/ciex_online/most_frequent_countries.csv")
+        
         
         # Creating country name labels
-        lbls <- paste(cn_top_10$Var1)
+        #lbls <- paste(cn_top_10$Var1)
         
         # Bar graph of 10 most mentioned countries
-        country_bar = ggplot(cn_top_10, aes(x = reorder(lbls,-Freq),y = Freq))+
-          ggtitle("Frequency of Selected Search Terms", subtitle="Top 10 country names in CIEX documents")+
-          xlab("Term") +
-          ylab("Frequency") + 
-          geom_bar(stat="identity",fill ="#6891C3" ) +
-          geom_text(aes(x = Var1, y = 300 + (Freq), label = round(Freq, 2)), family = "A")+
-          theme(plot.subtitle = element_text(size = 10, margin = margin(t = 0, r = 00, b = 20, l = 0)),
-                axis.text.x=element_text(angle = 45, vjust = 1, hjust=1),
-                axis.title.x = element_text(margin = margin(t = 10, r = 20, b = 10, l = 0)),
-                text = element_text(size = 15, family = "A"),
-                axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+        #country_bar = ggplot(cn_top_10, aes(x = reorder(lbls,-Freq),y = Freq))+
+         # ggtitle("Frequency of Selected Search Terms", subtitle="Top 10 country names in CIEX documents")+
+          #xlab("Term") +
+          #ylab("Frequency") + 
+          #theme_bw()+
+          #geom_bar(stat="identity",fill ="grey" ) +
+          #geom_text(aes(x = Var1, y = 300 + (Freq), label = round(Freq, 2)), family = "A")+
+          #theme(plot.subtitle = element_text(size = 10, margin = margin(t = 0, r = 00, b = 20, l = 0)),
+                #axis.text.x=element_text(angle = 45, vjust = 1, hjust=1),
+                #axis.title.x = element_text(margin = margin(t = 10, r = 20, b = 10, l = 0)),
+                #text = element_text(size = 15, family = "A", color = "black"),
+                #axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
         
         
           print("Import finished. Ready for term search and graph plotting.")    

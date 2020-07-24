@@ -1,7 +1,7 @@
 # Loading Libraries #
 library(tidyverse)
 library(gsheet)
-library(googlesheets4)
+library(gsheet)
 library(dplyr)
 library(plyr)
 
@@ -16,12 +16,21 @@ lista_master = gsheet2tbl(url_lm)%>%
   data.frame
 
 names_df = main_df%>% #separating names
-  select(stndr_name)
+  select(stndr_name)%>%
+  filter(stndr_name != "Desconhecido [ver observações especiais]")
 
 freq_nomes = count(names_df)
 
+top10_names = head(freq_nomes[order(-freq_nomes$freq),],10)
+top20_names = head(freq_nomes[order(-freq_nomes$freq),],20)
+
+write.csv(top10_names, "~/R/CIEX/ciex_online/top_10_names.csv", row.names = FALSE)
+write.csv(top20_names, "~/R/CIEX/ciex_online/top_20_names.csv", row.names = FALSE)
+
 names_lm = lista_master%>%
   select(name)
+
+
 
 check = purrr::map_df(names_lm, ~ .x %in% freq_nomes$stndr_name)
 
