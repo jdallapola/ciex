@@ -4,28 +4,11 @@ library(gsheet)
 library(dplyr)
 library(plyr)
 
-
 # Calling Database #
 url <- "https://docs.google.com/spreadsheets/d/1OTPqPYQ0NsXXT_bU33ygCrICfTq1WVExzf-0uv7CNfU/edit#gid=1046921816" 
-intact_main_df <- gsheet2tbl(url)
+intact_main_df <- data.frame(gsheet2tbl(url))
 
-# Converting to Data.Frame #
-intact_main_df <- intact_main_df %>%
-  data.frame()
-# Fixing encoding #
-Encoding(rownames(intact_main_df)) = "UTF-8"
-#Removing old columns
-intact_main_df <- intact_main_df%>%
-  select(-País.da.Ação,
-         -Cidade.da.Ação,
-         -País.Destino,
-         -Cidade.Destino, 
-         -Nomes.Entidades, 
-         -Data.Ação, 
-         -Status)
-
-#############################
-main_df = intact_main_df
+main_df = select(intact_main_df,!contains("obsolete"))
 
 
 # Checking if alright #
@@ -48,17 +31,15 @@ nrow(errors_ties) # Should be 0
 
 ###############
 
-  main_df = main_df%>%
-  filter(stndr_name != "Desconhecido [ver observaçõees especiais]")%>%
-  filter(!grepl('u.n.d.',stndr_name))%>%
-  filter(!grepl('p.n.d.',stndr_name))%>%
-  filter(!grepl('ilegível',stndr_name))
+main_df = main_df%>%
+  filter(stndr_name != "[Unidentified by CIEX]")%>%
+  filter(!grepl('u.f.n.',stndr_name))%>%
+  filter(!grepl('u.l.n.',stndr_name))%>%
+  filter(!grepl('illegible',stndr_name))
 
 ###############
 
 main_df$birth<-ifelse(is.na(main_df$iden_cntry_birth),main_df$birth<-main_df$assum_cntry_birth,main_df$birth<-main_df$iden_cntry_birth)
-bra_nomes<-main_df[main_df$birth=="Brazil","stndr_name"]
-bra_nomes<-unique(bra_nomes)
 
 # Splitting Country Codes in Columns by Delimiter
 
@@ -72,13 +53,25 @@ bra_nomes<-unique(bra_nomes)
       count(ties_id_df$ties_ids) #Checking for anomalies
       
     ties_df = mutate(ties_df, ties_ids = ties_id_df$ties_ids)
+        count(ties_df$ties_ids)
+        MIL_ties = filter(ties_df, ties_ids == 3)
+      
+            write.csv(MIL_ties, "./military_ties.csv",row.names = FALSE)
     
-    count(ties_df$ties_ids)
     
     
-    MIL_ties = filter(ties_df, ties_ids == 3)
- 
-    write.csv(MIL_ties, "./military_ties.csv",row.names = FALSE)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

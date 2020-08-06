@@ -61,9 +61,14 @@ main_df = select(intact_main_df,!contains("obsolete"))%>%
 # Matching Country codes to Longitude and Latitude
   countries_df <- join(countries_df, iso_lat_lon, by = "iso3", type = "left")
 
+ 
   # Exporting to CSV File
   write.csv(countries_df, "./export_data_geomap_timelineBR.csv",fileEncoding = "UTF-8", row.names = FALSE)
 
+ 
+  
+  
+  
   
 # ---------------------------------------------------------------------------------------------------------  
   

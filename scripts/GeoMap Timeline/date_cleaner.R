@@ -13,15 +13,15 @@
   # Randomizing
     
       set.seed(1964)
-      random_days <- data.frame(sample(01:28, n_days, replace = TRUE)) #Only goes until 28 because of February
+      random_days <- data.frame(sample(01:28, n_days, replace = TRUE)) #Only goes up to 28 because of February
 
       set.seed(1964)
       random_months <- data.frame(sample(01:12, n_months, replace = TRUE))
-  
-  # Replacing unknown days and months with random data  
+      
+      # Replacing unknown days and months with random data  
       dates_df_fix[grepl('X',dates_df_fix$X1), "X1"] <- random_days[]
       dates_df_fix[grepl('X',dates_df_fix$X2), "X2"] <- random_months[]
-
+      
 # Adding zeros #
     
   # Counting number of characters in day and month fields in dates_df_fix
