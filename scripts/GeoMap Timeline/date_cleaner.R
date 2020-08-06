@@ -44,7 +44,7 @@
       countries_df <- select(countries_df,-date)
       
        # Concatenating days, months, years
-      date = data.frame(date = paste0(dates_df_fix$X1,"/",dates_df_fix$X2,"/",dates_df_fix$X3))
+      date = data.frame(date = paste0(dates_df_fix$X3,"-",dates_df_fix$X2,"-",dates_df_fix$X1))
 
       # Binding new dates to countries_df
       countries_df <- cbind(countries_df, date)
