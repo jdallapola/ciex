@@ -10,9 +10,10 @@ intact_main_df <- data.frame(gsheet2tbl(url))
 
 # Calling ISO 3 / coordinates reference list # 
 
-iso_lat_lon = read.csv("./iso_lat_lon.csv")
+iso_lat_lon = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/GeoMap%20Timeline/iso_lat_lon.csv")
 
-main_df = select(intact_main_df,!contains("obsolete"))
+main_df = select(intact_main_df,!contains("obsolete"))%>%
+  filter(stndr_name != "[Unidentified by CIEX]")
 
 # Checking for errors
 
@@ -28,7 +29,7 @@ main_df = select(intact_main_df,!contains("obsolete"))
 # Consolidating country of birth
   
   main_df$birth<-ifelse(is.na(main_df$iden_cntry_birth),main_df$birth<-main_df$assum_cntry_birth,main_df$birth<-main_df$iden_cntry_birth)
-  main_df = filter(main_df, birth=="Brazil") # For geomap timeline with only brazilians
+  main_df = filter(main_df, birth=="Brazil") # For geomap timeline with only Brazilians
   
 # Selecting name column
   names_df = select(main_df,stndr_name)
@@ -36,12 +37,12 @@ main_df = select(intact_main_df,!contains("obsolete"))
 # Splitting Country Codes in Columns by Delimiter
   countries_df = data.frame(str_split_fixed(main_df$cntry_action, ";", Inf))
   
-# Binding with names in Main DF, Replacing Blanks with NA and Transforming Columns in to Rows
+# Binding with names in Main DF, Replacing Blanks with NA and Transforming Columns into Rows
   countries_df = cbind(names_df,countries_df)
   countries_df[countries_df==""]<-NA
   countries_df = pivot_longer(countries_df,-stndr_name, values_to = "iso3", values_drop_na = TRUE)
-  
-# Splitting Dates in Columns by Delimiter, Replacing Blanks with NA and Transforming Columns in to Rows
+
+# Splitting Dates in Columns by Delimiter, Replacing Blanks with NA and Transforming Columns into Rows
   dates_df = data.frame(str_split_fixed(main_df$date_action, ";", Inf))
   dates_df[dates_df==""]<-NA
   dates_df = pivot_longer(dates_df,cols = X1:X23,values_to = "date",values_drop_na = TRUE)
@@ -53,7 +54,7 @@ main_df = select(intact_main_df,!contains("obsolete"))
 # Removing unknown countries
   countries_df = filter(countries_df,!grepl('XX',iso3))
   
-# Run date fixer script below
+ # Run date fixer script below
   dates_df_fix <- data.frame(str_split_fixed(countries_df$date, "/", Inf))
   source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/GeoMap%20Timeline/date_cleaner.R")  
 
@@ -64,13 +65,9 @@ main_df = select(intact_main_df,!contains("obsolete"))
   write.csv(countries_df, "./export_data_geomap_timelineBR.csv",fileEncoding = "UTF-8", row.names = FALSE)
 
   
-
+# ---------------------------------------------------------------------------------------------------------  
   
-  
-  
-  
-  
-  # Ignore -->
+# For Appendix:   
   
   # Frequency table of countries
 
