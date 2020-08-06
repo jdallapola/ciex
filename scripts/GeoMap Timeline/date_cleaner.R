@@ -13,7 +13,7 @@
   # Randomizing
     
       set.seed(1964)
-      random_days <- data.frame(sample(01:31, n_days, replace = TRUE))
+      random_days <- data.frame(sample(01:28, n_days, replace = TRUE)) #Only goes until 28 because of February
 
       set.seed(1964)
       random_months <- data.frame(sample(01:12, n_months, replace = TRUE))
