@@ -10,6 +10,7 @@
   library(plyr)
   library(data.table)
   library(ggplot2)
+  library(tidyverse)
     
     
     
@@ -75,12 +76,12 @@
           n <- sum(search_directory$Freq.)
           title <- paste0(search_key,":"," term frequency in CIEX Documents", collapse = NULL)
           cap <- paste("n = ",n, collapse = NULL)
-          windowsFonts(A = windowsFont("Louis George CafÃ©"))
+          windowsFonts(A = windowsFont("Louis George Café"))
           
           # Structuring and Plotting Graph #  
           ggplot(search_directory, aes(x=Years, y=Freq., group=1))+
             geom_line(color="#6891C3", size = 1.2) +
-            labs(caption=cap) +
+            labs(caption=cap) + # Remember to set this title
             xlab("Year") +
             ylab("Frequency") +
             theme_bw()+

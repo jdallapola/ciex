@@ -2,35 +2,38 @@
 
 source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/ciex_pdf_mining.R",
        encoding = "UTF-8")        
-                                                                                                  
+
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#    
 #Custom Term graph plotting tools
-  #Remember to set title in graphs
+#Remember to set title in graphs
 
-search_key <- "" #insert search key here
-go_search() # initiate search mechanism and graph plotter
-  
+setwd("C:/Users/jdall/Dropbox/FGV/Work/Authoritarian Diffusion Project/Authoritarian Diffusion/CIEX/Data Analysis/Visual Representations of Data/R - Gráficos Exportados")
+png(paste0(search_key,".png"), units="in", width=8, height=3, res=300)
+search_key <- "Cuba" #insert search key here
+go_search()
+dev.off()
 
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#    
 # Appendix Figures
-setwd("C:/Users/jdall/Dropbox/FGV/Work/Authoritarian Diffusion Project/Authoritarian Diffusion/CIEX/Data Analysis/Visual Representations of Data/R - GrÃ¡ficos Exportados")
+setwd("C:/Users/jdall/Dropbox/FGV/Work/Authoritarian Diffusion Project/Authoritarian Diffusion/CIEX/Data Analysis/Visual Representations of Data/R - Gráficos Exportados")
 
 
 # Figure 1
 png("Figure1.png", units="in", width=8, height=3, res=300)
-  search_key <- "Asilado" #insert search key here
-  go_search()
+search_key <- "Asilado" #insert search key here
+go_search()
 dev.off()
-  
+
 # Figure 2
 png("Figure2.png", units="in", width=8, height=3, res=300)
-  search_key <- "Refugiado" #insert search key here
-  go_search()
+search_key <- "Refugiado" #insert search key here
+go_search()
 dev.off()    
 
 # Figure 3
 png("Figure3.png", units="in", width=8, height=3, res=300)
-  search_key <- "Subversivo" #insert search key here
-  go_search()
+search_key <- "Subversivo" #insert search key here
+go_search()
 dev.off()
 
 # Figure 4 
@@ -42,28 +45,36 @@ AR = as.matrix(ciex_pdfs.dtm)%>%  data.frame()%>%  select(tolower("Argentina"))%
 AR = setNames(aggregate(AR$Freq.,by = list(Years = AR$Years),FUN = sum), c("Years","Freq."))
 PT = as.matrix(ciex_pdfs.dtm)%>%  data.frame()%>%  select(tolower("Portugal"))%>%  cbind(years)%>%  setNames(c("Freq.","Years"))
 PT = setNames(aggregate(PT$Freq.,by = list(Years = PT$Years),FUN = sum), c("Years","Freq."))
+#CU = as.matrix(ciex_pdfs.dtm)%>%  data.frame()%>%  select(tolower("Cuba"))%>%  cbind(years)%>%  setNames(c("Freq.","Years"))
+#CU = setNames(aggregate(CU$Freq.,by = list(Years = CU$Years),FUN = sum), c("Years","Freq."))
 
 cn_terms = data.frame("Years" = 1966:1986,"UY" = UY$Freq,"CL" = CL$Freq.,"AR" = AR$Freq.,"PT" = PT$Freq.)
 cn_terms <- cn_terms %>% gather(key = "variable", value = "value", -Years)
 
-  #Plotting Graph
-    
-  png("Figure6.png", units="in", width=8, height=5, res=300)
-    
-    ggplot(cn_terms, aes(x = Years, y = value)) + 
-    geom_ribbon(aes(ymin = min(value), ymax = value, 
-                    fill = variable),size = 1) + 
-    theme_bw()+
-    scale_fill_manual(values = alpha(c("#ffcd3c","#ff9234","#75AADB","#35d0ba"),.7),
-                      name = "",
-                      labels = c("Uruguay", "Chile", "Argentina", "Portugal"),
-                      breaks = c("UY", "CL", "AR", "PT"))+
-    xlab("Year") +
-    ylab("Frequency") + 
-    theme(text=element_text(size = 15,family = "A"),
-          axis.title.x = element_text(margin = margin(t=10,r=0,b=00,l=0)),
-          axis.title.y = element_text(margin = margin(t=00,r=20,b=0,l=00)))
+#Plotting Graph
 
-    dev.off()
+png("Figure4_AmnestyLawLine.png", units="in", width=8, height=5, res=300)
+
+ggplot(cn_terms, aes(x = Years, y = value)) + 
+  geom_ribbon(aes(ymin = min(value), ymax = value, 
+                  fill = variable),size = 1) + 
+  theme_bw()+
+  scale_fill_manual(values = alpha(c("#ffcd3c","#ff9234","#75AADB","#35d0ba"),.7),
+                    name = "",
+                    labels = c("Uruguay", "Chile", "Argentina", "Portugal"),
+                    breaks = c("UY", "CL", "AR", "PT"))+
+  geom_vline(xintercept = 1979,linetype="dotted", color = "#4F4F4F", size=.8)+
+  annotate("text",x=c(1979.5),y=520,label=c("Brazilian Amnesty Law"),hjust=0,family = "A")+
+  annotate("text",x=c(1979.5),y=550,label=c("1979:"),hjust=0,family = "A")+
+  xlab("Year") +
+  ylab("Frequency") + 
+  theme(text=element_text(size = 15,family = "A"),
+        axis.title.x = element_text(margin = margin(t=10,r=0,b=00,l=0)),
+        axis.title.y = element_text(margin = margin(t=00,r=20,b=0,l=00)))
+
+
+dev.off()
+
+
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
