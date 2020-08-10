@@ -31,7 +31,7 @@
       
     print("3/5 Clean-up Process")
         
-        ciex_stopwords = scan("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/stopwords_CIEX.csv",what = "character")
+        ciex_stopwords = scan("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/Exported_csvs/stopwords_CIEX.csv",what = "character")
         
         corp_cleaned <- tm_map(corp,content_transformer(tolower))
         corp_cleaned <- tm_map(corp_cleaned, removeWords, c("data",ciex_stopwords, 
@@ -55,7 +55,7 @@
             
         #Importing PDF Years List
         
-        years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/years_CIEX.csv")
+        years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/Exported_csvs/years_CIEX.csv")
         
         # Creating search function
         
@@ -76,7 +76,7 @@
           n <- sum(search_directory$Freq.)
           title <- paste0(search_key,":"," term frequency in CIEX Documents", collapse = NULL)
           cap <- paste("n = ",n, collapse = NULL)
-          windowsFonts(A = windowsFont("Louis George Café"))
+          windowsFonts(A = windowsFont("Louis George CafÃ©"))
           
           # Structuring and Plotting Graph #  
           ggplot(search_directory, aes(x=Years, y=Freq., group=1))+
@@ -95,7 +95,7 @@
         print("6/6 Creating country DTM based off of dictionary of selected country names")
         
         # Pre-defined list of terms
-        countries <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/country_list_pt.csv", header = FALSE)
+        countries <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/Exported_csvs/country_list_pt.csv", header = FALSE)
         countries <-countries$V1%>%
           as.character
         
