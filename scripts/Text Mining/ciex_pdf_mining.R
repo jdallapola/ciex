@@ -76,7 +76,7 @@
           n <- sum(search_directory$Freq.)
           title <- paste0(search_key,":"," term frequency in CIEX Documents", collapse = NULL)
           cap <- paste("n = ",n, collapse = NULL)
-          windowsFonts(A = windowsFont("Louis George Café"))
+          windowsFonts(A = windowsFont("Louis George CafÃ©"))
           
           # Structuring and Plotting Graph #  
           ggplot(search_directory, aes(x=Years, y=Freq., group=1))+
