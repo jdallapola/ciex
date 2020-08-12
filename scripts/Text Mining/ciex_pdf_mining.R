@@ -48,14 +48,28 @@
     print("4/5 Creating Document Term Matrix")
     
         ciex_pdfs.dtm <- DocumentTermMatrix(corp_cleaned, control = list(bounds = list(global = c(3, Inf)))) 
-      
-          
-    
-    print("5/6 Creating search and graph plotter tool")
-            
+        ft_ciex <- findFreqTerms(ciex_pdfs.dtm, lowfreq = 2000, highfreq = Inf)
+        
         #Importing PDF Years List
         
         years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/Exported_csvs/years_CIEX.csv")
+        
+        terms_per_year = data.frame(terms = rowSums(as.matrix(ciex_pdfs.dtm)))%>%
+          cbind(years)
+        terms_per_year = aggregate(terms_per_year$terms,by = list(Years = terms_per_year$x), FUN = sum)  
+        
+       g_terms_per_year = ggplot(terms_per_year, aes(x=Years, y=x, group=1))+
+          geom_line()+ 
+          xlab("Year") +
+          ylab("Frequency") +
+          theme_bw()+
+          theme(text = element_text(size = 15, family = "A"),
+                axis.title.x = element_text(margin = margin(t=5,r=0,b=00,l=0)),
+                axis.title.y = element_text(margin = margin(t=00,r=20,b=0,l=00)),
+                plot.subtitle = element_text(size = 10,margin = margin(t=00,r=00,b=10,l=00)))
+    
+    print("5/6 Creating search and graph plotter tool")
+            
         
         # Creating search function
         
@@ -80,7 +94,7 @@
           
           # Structuring and Plotting Graph #  
           ggplot(search_directory, aes(x=Years, y=Freq., group=1))+
-            geom_line(color="#6891C3", size = 1.2) +
+            geom_area(color = "black", fill =alpha("#6891C3",.7), size = .1) +
             labs(caption=cap) + # Remember to set this title
             xlab("Year") +
             ylab("Frequency") +
@@ -144,3 +158,4 @@
         
           print("Import finished. Ready for term search and graph plotting.")    
         
+          
