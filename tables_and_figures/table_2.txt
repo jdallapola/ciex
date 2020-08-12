@@ -1,0 +1,11 @@
+"Country","Frequency"
+"Brasil",5110
+"Uruguai",3899
+"Chile",3382
+"Argentina",2407
+"Cuba",1663
+"Portugal",901
+"China",772
+"Bolívia",639
+"Peru",628
+"Venezuela",584

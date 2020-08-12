@@ -63,12 +63,9 @@ main_df = select(intact_main_df,!contains("obsolete"))%>%
 
  
   # Exporting to CSV File
-  write.csv(countries_df, "./export_data_geomap_timelineBR.csv",fileEncoding = "UTF-8", row.names = FALSE)
+  write.csv(countries_df, "./export_data_geomap_timeline.csv",fileEncoding = "UTF-8", row.names = FALSE)
 
  
-  
-  
-  
   
 # ---------------------------------------------------------------------------------------------------------  
   
@@ -80,7 +77,7 @@ main_df = select(intact_main_df,!contains("obsolete"))%>%
 
   most_freq_cn_action <- most_freq_cn_action[order(-most_freq_cn_action$freq),]
   names(most_freq_cn_action)[] = c("Country","Frequency")
-
+  head(most_freq_cn_action,10)
   write.csv(head(most_freq_cn_action,10), "./most_freq_country_action.csv",fileEncoding = "UTF-8", row.names = FALSE)
   
 

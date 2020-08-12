@@ -1,0 +1,11 @@
+"Country","Frequency"
+"URY",5859
+"CHL",2581
+"PRT",1886
+"BRA",1774
+"ARG",1474
+"VEN",936
+"CUB",725
+"BOL",684
+"SUN",528
+"FRA",412

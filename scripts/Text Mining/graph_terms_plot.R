@@ -9,32 +9,67 @@ source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20
 #Table 1
 
 
-
 write.table()
 
 
 # Table 2
 
-countries <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/Exported_csvs/country_list_pt.csv", header = FALSE)
-countries <-as.character(countries$V1)
-countries.dtm <-DocumentTermMatrix(corp_cleaned, control=list(dictionary = countries))
+country_list <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/Exported_csvs/country_list_pt.csv", header = FALSE)
+country_list <-as.character(country_list$V1)
+countries.dtm <-DocumentTermMatrix(corp_cleaned, control=list(dictionary = country_list))
 
-cn_top_10 <- head(stack(sort(apply(countries.dtm, 2, sum), decreasing = TRUE)),10)
-  cn_top_10 <- cn_top_10[,c(2,1)]
-  names(cn_top_10) <- c("Country","Frequency")
+cn_top_10_tm<- head(stack(sort(apply(countries.dtm, 2, sum), decreasing = TRUE)),10)
+  cn_top_10_tm <- cn_top_10_tm[,c(2,1)]
+  names(cn_top_10_tm) <- c("Country","Frequency")
   capFirst <- function(s) {paste(toupper(substring(s, 1, 1)), substring(s, 2), sep = "")}
-  cn_top_10$Country <- capFirst(cn_top_10$Country)
+  cn_top_10_tm$Country <- capFirst(cn_top_10_tm$Country)
 
-write.table(cn_top_10, "~/R/CIEX/ciex_online/cn_top10_tm.txt", sep = ",", row.names = FALSE)
+write.table(cn_top_10_tm, "~/R/CIEX/ciex_online/tables_and_figures/table_2.txt", sep = ",", row.names = FALSE)
 
 # Table 3
 
+countries_df = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/GeoMap%20Timeline/export_data_geomap_timeline.csv")
+  cn_top_10_df <- count(countries_df$iso3)
+  cn_top_10_df <- head(cn_top_10_df[order(-cn_top_10_df$freq),],10)
+  names(cn_top_10_df) = c("Country","Frequency")
+
+write.table(cn_top_10_df, "~/R/CIEX/ciex_online/tables_and_figures/table_3.txt", sep = ",", row.names = FALSE)
+
+
+# Table 4,5 and 6
+
+    source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Auxiliary%20Spreadsheet%20Tools/Frequency_of_names.R")
+  
+    freq_groups = rbind(rbind(f.1, f.2,f.3, f.4.5, f.6.10, f.10.20, f.20.30, f.30.40,f.40.50, f.over.50),
+                    data.frame("Interval" = "Total", "Names" = sum(count_freq$Number_of_people), "Entries" = sum(freq_nomes$freq)))
+
+  # Table 4
+    names_df_by_interval = select(freq_groups, Interval, Names)%>%
+                       mutate(names_df_by_interval, "Percentage" = (Names/freq_groups[11,2])*100)
+    
+      write.table(names_df_by_interval, "~/R/CIEX/ciex_online/tables_and_figures/table_4.txt", sep = ",", row.names = FALSE)
+    
+  # Table 5
+    entries_df_by_interval = select(freq_groups, Interval,Entries)%>%
+                         mutate(entries_df_by_interval, "Percentage" = (Entries/freq_groups[11,3])*100)
+    
+      write.table(entries_df_by_interval, "~/R/CIEX/ciex_online/tables_and_figures/table_5.txt", sep = ",", row.names = FALSE)
+  
+  # Table 6 
+    
+    over50_list = filter(freq_nomes[order(-freq_nomes$freq),],freq>=50)
+      
+      write.table(over50_list, "~/R/CIEX/ciex_online/tables_and_figures/table_6.txt", sep = ",", row.names = FALSE)
+    
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#    
 # Appendix Figures
-setwd("C:/Users/jdall/Dropbox/FGV/Work/Authoritarian Diffusion Project/Authoritarian Diffusion/CIEX/Data Analysis/Visual Representations of Data/R - Gráficos Exportados")
-
+        
+    #Dropbox
+        setwd("C:/Users/jdall/Dropbox/FGV/Work/Authoritarian Diffusion Project/Authoritarian Diffusion/CIEX/Data Analysis/Visual Representations of Data/R - Gráficos Exportados")
+    #GitHub
+        setwd("~/R/CIEX/ciex_online/tables_and_figures/")
 
 # Figure 1
 

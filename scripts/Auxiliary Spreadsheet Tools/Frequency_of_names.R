@@ -3,9 +3,6 @@ library(gsheet)
 library(dplyr)
 library(plyr)
 
-
-#Graphs from Collected Data
-
 # Calling Database #
 url <- "https://docs.google.com/spreadsheets/d/1OTPqPYQ0NsXXT_bU33ygCrICfTq1WVExzf-0uv7CNfU/edit#gid=1046921816" 
 intact_main_df <- data.frame(gsheet2tbl(url))
