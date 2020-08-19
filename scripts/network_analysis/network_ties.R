@@ -27,7 +27,7 @@ error_ties = cbind(main_df,count_ties,count_id)%>%
           mutate(total_ties = t - id)%>%
           filter(total_ties != 0)
 
-nrow(errors_ties) # Should be 0
+nrow(error_ties) # Should be 0
 
 ###############
 
@@ -54,9 +54,10 @@ main_df$birth<-ifelse(is.na(main_df$iden_cntry_birth),main_df$birth<-main_df$ass
       
     ties_df = mutate(ties_df, ties_ids = ties_id_df$ties_ids)
         count(ties_df$ties_ids)
-        MIL_ties = filter(ties_df, ties_ids == 3)
+    
+    MIL_ties = filter(ties_df, ties_ids == 3)
       
-            write.csv(MIL_ties, "./military_ties.csv",row.names = FALSE)
+            write.csv(MIL_ties, "./military_ties2.csv",row.names = FALSE)
     
     
     

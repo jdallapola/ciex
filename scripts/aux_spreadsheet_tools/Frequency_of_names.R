@@ -75,3 +75,34 @@ names(count_freq)[2] <- "Number_of_people"
                        "Names" = sum(select(filter(count_freq, Mentions >= 50),"Number_of_people")),
                        "Entries" = sum(select(aggregate(filter(freq_nomes, freq >= 50)$freq, by = list(freq = filter(freq_nomes, freq >= 50)$freq), FUN = sum),x)))
   
+  #########
+  #Docs with most people
+  
+  n_documents = count(main_df$title)
+  
+  filled_title_list = select(main_df,title,stndr_name)
+  
+  filled_title_list <- filled_title_list%>%
+    fill(title)
+  
+  freq_titles = count(filled_title_list$title)
+  freq_titles = freq_titles[order(-freq_titles$freq),]
+  
+  title1 = freq_titles[1,]%>%
+    select(x)
+  
+  title2 = freq_titles[2,]%>%
+    select(x)
+  
+  names_in_doc_1 = filter(filled_title_list, title == title1$x)
+  names_in_doc_2 = filter(filled_title_list, title == title2$x)$stndr_name
+  
+  
+  test = left_join(names_in_doc_1,freq_nomes,by = 'stndr_name')
+  
+  count(test$freq)
+  View(test)
+  
+  
+  
+  

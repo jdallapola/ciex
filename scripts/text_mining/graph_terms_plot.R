@@ -3,14 +3,17 @@
 source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/ciex_pdf_mining.R")
 
 
+#Dropbox
+setwd("C:/Users/jdall/Dropbox/FGV/Work/Authoritarian Diffusion Project/Authoritarian Diffusion/CIEX/Data Analysis/Visual Representations of Data/R - Gráficos Exportados")
+#GitHub
+setwd("~/R/CIEX/ciex_online/tables_and_figures/")
+
+
+
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#    
 # Appendix Tables
 
 #Table 1
-
-
-write.table()
-
 
 # Table 2
 
@@ -46,32 +49,22 @@ write.table(cn_top_10_df, "~/R/CIEX/ciex_online/tables_and_figures/table_3.txt",
   # Table 4
     names_df_by_interval = select(freq_groups, Interval, Names)%>%
                        mutate(names_df_by_interval, "Percentage" = (Names/freq_groups[11,2])*100)
-    
-      write.table(names_df_by_interval, "~/R/CIEX/ciex_online/tables_and_figures/table_4.txt", sep = ",", row.names = FALSE)
+          write.table(names_df_by_interval, "~/R/CIEX/ciex_online/tables_and_figures/table_4.txt", sep = ",", row.names = FALSE)
     
   # Table 5
     entries_df_by_interval = select(freq_groups, Interval,Entries)%>%
                          mutate(entries_df_by_interval, "Percentage" = (Entries/freq_groups[11,3])*100)
-    
-      write.table(entries_df_by_interval, "~/R/CIEX/ciex_online/tables_and_figures/table_5.txt", sep = ",", row.names = FALSE)
+          write.table(entries_df_by_interval, "~/R/CIEX/ciex_online/tables_and_figures/table_5.txt", sep = ",", row.names = FALSE)
   
   # Table 6 
-    
     over50_list = filter(freq_nomes[order(-freq_nomes$freq),],freq>=50)
-      
-      write.table(over50_list, "~/R/CIEX/ciex_online/tables_and_figures/table_6.txt", sep = ",", row.names = FALSE)
+          write.table(over50_list, "~/R/CIEX/ciex_online/tables_and_figures/table_6.txt", sep = ",", row.names = FALSE)
     
-
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#    
 # Appendix Figures
-        
-    #Dropbox
-        setwd("C:/Users/jdall/Dropbox/FGV/Work/Authoritarian Diffusion Project/Authoritarian Diffusion/CIEX/Data Analysis/Visual Representations of Data/R - Gráficos Exportados")
-    #GitHub
-        setwd("~/R/CIEX/ciex_online/tables_and_figures/")
-
-# Figure 1
+     
+      # Figure 1
 
 term_1 = as.matrix(ciex_pdfs.dtm)%>%  data.frame()%>%  select(tolower("Asilado"))%>%  cbind(years)%>%  setNames(c("Freq.","Years"))
 term_1 = setNames(aggregate(term_1$Freq.,by = list(Years = term_1$Years),FUN = sum), c("Years","Freq."))
@@ -90,7 +83,6 @@ term_4 = setNames(aggregate(term_4$Freq.,by = list(Years = term_4$Years),FUN = s
 
 png("Figure1.png", units="in", width=8, height=6, res=300)
 
-
 ggplot(selected_terms, aes(x = Years, y = value)) + 
   geom_ribbon(aes(ymin = min(value), ymax = value,fill = variable),size = .1,color = "#514e4f") + 
   theme_bw()+
@@ -103,11 +95,10 @@ ggplot(selected_terms, aes(x = Years, y = value)) +
         legend.position = "none")+
   facet_grid(variable ~ .,scales="free")+
   geom_vline(xintercept = 1979,linetype="dotted", color = "#4F4F4F", size=.8)+
-  geom_text(x = 1982.5, y = 400, aes(label = label), data = f_labels,family= "A")
-
+  geom_text(x = 1982.5, y = 400, aes(label = label), data = f_labels,family= "A")+
+  scale_x_continuous(breaks = round(seq(min(selected_terms$Years), max(selected_terms$Years), by = 2),1))
 
 dev.off()
-
 
 # Figure 2 
 UY = as.matrix(ciex_pdfs.dtm)%>%  data.frame()%>%  select(tolower("Uruguai"))%>%  cbind(years)%>%  setNames(c("Freq.","Years"))
@@ -118,8 +109,6 @@ AR = as.matrix(ciex_pdfs.dtm)%>%  data.frame()%>%  select(tolower("Argentina"))%
 AR = setNames(aggregate(AR$Freq.,by = list(Years = AR$Years),FUN = sum), c("Years","Freq."))
 PT = as.matrix(ciex_pdfs.dtm)%>%  data.frame()%>%  select(tolower("Portugal"))%>%  cbind(years)%>%  setNames(c("Freq.","Years"))
 PT = setNames(aggregate(PT$Freq.,by = list(Years = PT$Years),FUN = sum), c("Years","Freq."))
-#CU = as.matrix(ciex_pdfs.dtm)%>%  data.frame()%>%  select(tolower("Cuba"))%>%  cbind(years)%>%  setNames(c("Freq.","Years"))
-#CU = setNames(aggregate(CU$Freq.,by = list(Years = CU$Years),FUN = sum), c("Years","Freq."))
 
 cn_terms = data.frame("Years" = 1966:1986,"Uruguay" = UY$Freq,"Chile" = CL$Freq.,"Argentina" = AR$Freq.,"Portugal" = PT$Freq.)
 cn_terms <- cn_terms %>% gather(key = "variable", value = "value", -Years)
@@ -140,9 +129,26 @@ png("Figure2.png", units="in", width=8, height=6, res=300)
             axis.title.x = element_text(margin = margin(t=10,r=0,b=00,l=0)),
             axis.title.y = element_text(margin = margin(t=00,r=20,b=0,l=00)),
             legend.position = "none")+
-      facet_grid(variable ~ .)
+      facet_grid(variable ~ .)+
+      scale_x_continuous(breaks = round(seq(min(selected_terms$Years), max(selected_terms$Years), by = 2),1))
 
 dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
