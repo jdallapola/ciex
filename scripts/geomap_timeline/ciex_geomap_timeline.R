@@ -10,8 +10,9 @@ intact_main_df <- data.frame(gsheet2tbl(url))
 
 # Calling ISO 3 / coordinates reference list # 
 
-iso_lat_lon = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/GeoMap%20Timeline/iso_lat_lon.csv")
+iso_lat_lon = read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/geomap_timeline/referenced_csvs/iso_lat_lon.csv")
 
+# Removing unwanted data
 main_df = select(intact_main_df,!contains("obsolete"))%>%
   filter(stndr_name != "[Unidentified by CIEX]")
 
@@ -59,7 +60,7 @@ main_df = select(intact_main_df,!contains("obsolete"))%>%
   source("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/GeoMap%20Timeline/date_cleaner.R")  
 
 # Matching Country codes to Longitude and Latitude
-  countries_df <- join(countries_df, iso_lat_lon, by = "iso3", type = "left")
+  countries_df <- right_join(countries_df, iso_lat_lon, by = "iso3", type = "left")
 
  
   # Exporting to CSV File
