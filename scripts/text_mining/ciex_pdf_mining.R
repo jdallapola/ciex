@@ -90,7 +90,7 @@
           n <- sum(search_directory$Freq.)
           title <- paste0(search_key,":"," term frequency in CIEX Documents", collapse = NULL)
           cap <- paste("n = ",n, collapse = NULL)
-          windowsFonts(A = windowsFont("Louis George Café"))
+          windowsFonts(A = windowsFont("Ek Mukta"))
           
           # Structuring and Plotting Graph #  
           ggplot(search_directory, aes(x=Years, y=Freq., group=1))+
@@ -109,7 +109,7 @@
         print("6/6 Creating country DTM based off of dictionary of selected country names")
         
         # Pre-defined list of terms
-        countries <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/Exported_csvs/country_list_pt.csv", header = FALSE)
+        countries <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/text_mining/referenced_csvs/country_list_pt.csv", header = FALSE)
         countries <-countries$V1%>%
           as.character
         
