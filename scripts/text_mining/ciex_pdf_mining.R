@@ -31,7 +31,7 @@
       
     print("3/5 Clean-up Process")
         
-        ciex_stopwords = scan("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/Exported_csvs/stopwords_CIEX.csv",what = "character")
+        ciex_stopwords = scan("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/text_mining/referenced_csvs/stopwords_CIEX.csv",what = "character")
         
         corp_cleaned <- tm_map(corp,content_transformer(tolower))
         corp_cleaned <- tm_map(corp_cleaned, removeWords, c("data",ciex_stopwords, 
@@ -52,7 +52,7 @@
         
         #Importing PDF Years List
         
-        years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/Text%20Mining/Exported_csvs/years_CIEX.csv")
+        years <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/text_mining/referenced_csvs/years_CIEX.csv")
         
         terms_per_year = data.frame(terms = rowSums(as.matrix(ciex_pdfs.dtm)))%>%
           cbind(years)
