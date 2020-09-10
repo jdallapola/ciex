@@ -5,11 +5,8 @@
   library(pdftools)
   library(tm)
   library(stopwords)
-  library(dplyr)
   library(stringr)
-  library(plyr)
   library(data.table)
-  library(ggplot2)
   library(tidyverse)
     
     
@@ -109,12 +106,13 @@
         print("6/6 Creating country DTM based off of dictionary of selected country names")
         
         # Pre-defined list of terms
-        countries <- read.csv("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/text_mining/referenced_csvs/country_list_pt.csv", header = FALSE)
-        countries <-countries$V1%>%
+        countries_df <- read.csv2("~/R/CIEX/ciex_online/scripts/text_mining/referenced_csvs/country_list_pt.csv")
+        countries_df <- read.csv2("https://raw.githubusercontent.com/jdallapola/ciex/master/scripts/text_mining/referenced_csvs/country_list_pt.csv", header = FALSE)
+        countries_pt <-countries_df$country_pt%>%
           as.character
-        
+      
         # DTM creation 
-        countries.dtm <-DocumentTermMatrix(corp_cleaned, control=list(dictionary = countries))
+        countries.dtm <-DocumentTermMatrix(corp_cleaned, control=list(dictionary = countries_pt))
         
         # Removing low frequency terms 
         ft <- findFreqTerms(countries.dtm, lowfreq = 50, highfreq = Inf)
@@ -122,6 +120,38 @@
         # Writing to new DTM
         ft.dtm <- as.matrix(countries.dtm[,ft])
         
+       test = as.matrix(ft.dtm)
+       test = aggregate(test, by = list(Years = years$x),FUN = sum)
+       test <- test %>% gather(key = "country_pt", value = "value", -Years)
+       test <- join(test, countries_df, by = "country_pt")
+       test_iso2 = right_join(test, iso_lat_lon, by = "country")
+      
+       selected_year = 1966
+       test_iso = filter(test_iso2, Years == selected_year)
+       
+       ggplot() +   
+         borders("world", colour="darkgray", fill="#f5f5f5")  +
+         geom_point(aes(x=test_iso$lon_avg, y= test_iso$lat_avg), color = "#6e7f80", alpha = .5,
+                    size=test_iso$value/20) +
+         scale_x_continuous(name="Longitude") +
+         scale_y_continuous(name="Latitude") +
+         theme(panel.background = element_rect(fill = "white",
+                                               colour = "white"),
+               panel.grid.major = element_blank(), 
+               panel.grid.minor = element_blank(),
+               axis.line=element_blank(),
+               axis.text.x=element_blank(),
+               axis.text.y=element_blank(),
+               axis.ticks=element_blank(),
+               axis.title.x=element_blank(),
+               axis.title.y=element_blank(),
+               legend.position = "none")+
+         annotate("text", x = -40, y = -55, label =  selected_year, size = 10, family = "B")+
+         annotate("text", x = -40, y = -31, label = "Uruguay", size = 5, family = "A")+
+         annotate("text", x = -72, y = -37, label = "Argentina", size = 5, family = "A")+
+         annotate("text", x = -78, y = -30, label = "Chile", size = 5, family = "A")
+       
+       
         #Consolidating mentions
         most_frequent_countries = sort(apply(ft.dtm, 2, sum), decreasing = TRUE)
         
